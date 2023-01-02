@@ -16,66 +16,29 @@ const createpaymentrecord = (req, res) => {
             return res.status(409).send({ message: "No existe el usuario" })
         }
         if (!user) { return res.status(409).send({ message: "No existe el usuario" }) }
-
-        if ( tipo_de_pago === "efectivo") {
-            Ledger.updateOne({$inc: { cashBalance: monto_pagado } }, (error, ledger) => {
+        Ledger.updateOne({ $push: { payments: newpaymentrecord._id }, $inc: { balance: monto_pagado } }, (error, ledger) => {
+            if (error) {
+                return res.status(400).send({ message: "No se pudo realizar la busqueda" })
+            }
+            if (!ledger) {
+                return res.status(409).send({ message: "No existe el libro" })
+            }
+            newpaymentrecord.save((error, paymentrecord) => {
                 if (error) {
-                    return res.status(400).send({ message: "No se pudo realizar la busqueda" })
+                    Ledger.updateOne({ $pull: { payments: newpaymentrecord._id }, $inc: { balance: -monto_pagado } })
+                    return res.status(400).send({ message: "No se ha podido crear el registro de pago" })
                 }
-                if (!ledger) {
-                    return res.status(409).send({ message: "No existe el libro" })
-                }
-
-
-                newpaymentrecord.save((error, paymentrecord) => {
-                    if (error) {
-                        Ledger.updateOne({$inc: { cashBalance: -monto_pagado } })
-                        return res.status(400).send({ message: "No se ha podido crear el registro de pago" })
-
+                let extraInfo = ""
+                const toSend = ("Su pago: \n" + newpaymentrecord + "\n a sido correctamente procesado\n")
+                mailerController({ params: { opt: true }, body: { title: "Confirmacion de pago", message: toSend, to: user.email } }, ({ codr, msgr }) => {
+                    if (codr != 200) {
+                        extraInfo = msgr
                     }
-
-                    let extraInfo = ""
-                    const toSend = ("Su pago: \n" + newpaymentrecord + "\n a sido correctamente procesado\n")
-                    mailerController({ params: { opt: true }, body: { title: "Confirmacion de pago", message: toSend, to: user.email } }, ({ codr, msgr }) => {
-                        if (codr != 200) {
-                            extraInfo = msgr
-                        }
-                    })
-
-                    res.setHeader('Content-Type', 'application/json')
-                    return res.status(200).send(JSON.stringify({ extraInfo }, null, 10) + " " + JSON.stringify(paymentrecord, null, 10))
                 })
+                res.setHeader('Content-Type', 'application/json')
+                return res.status(200).send(JSON.stringify({ extraInfo }, null, 10) + " " + JSON.stringify(paymentrecord, null, 10))
             })
-        } else if (tipo_de_pago === "transferencia") {
-            Ledger.updateOne({ $inc: { debitBalance: monto_pagado } }, (error, ledger) => {
-                if (error) {
-                    return res.status(400).send({ message: "No se pudo realizar la busqueda" })
-                }
-                if (!ledger) {
-                    return res.status(409).send({ message: "No existe el libro" })
-                }
-
-
-                newpaymentrecord.save((error, paymentrecord) => {
-                    if (error) {
-                        Ledger.updateOne({$inc: { debitBalance: -monto_pagado } })
-                        return res.status(400).send({ message: "No se ha podido crear el registro de pago" })
-
-                    }
-
-                    let extraInfo = ""
-                    const toSend = ("Su pago: \n" + newpaymentrecord + "\n a sido correctamente procesado\n")
-                    mailerController({ params: { opt: true }, body: { title: "Confirmacion de pago", message: toSend, to: user.email } }, ({ codr, msgr }) => {
-                        if (codr != 200) {
-                            extraInfo = msgr
-                        }
-                    })
-
-                    res.setHeader('Content-Type', 'application/json')
-                    return res.status(200).send(JSON.stringify({ extraInfo }, null, 10) + " " + JSON.stringify(paymentrecord, null, 10))
-                })
-            })
-        }
+        })
     })
 }
 const getpaymentrecord = (req, res) => {
@@ -104,7 +67,7 @@ const getpaymentrecords = (req, res) => {
 }
 const deletepaymentrecord = async (req, res) => {
     const { id } = req.params;
-    Paymentrecord.findOneAndDelete(id, (err, paymentrecord) => {
+    Paymentrecord.findByIdAndDelete(id, (err, paymentrecord) => {
         if (err) {
             return res.status(400).send({ message: 'Error al eliminar el registro' });
         }
