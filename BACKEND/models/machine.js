@@ -18,6 +18,7 @@ const machineSchema = new Schema({
     },
     serial: {
         type: String,
+        unique:true,
         required: true,
         minLength: 1,
         maxLength: 100
@@ -35,5 +36,4 @@ const machineSchema = new Schema({
         ref: 'schedule'
     }]
 })
-
 module.exports = mongoose.model('machine', machineSchema);
