@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { useToast, FormControl, Button, Container, Heading, HStack, FormLabel, Flex } from '@chakra-ui/react'
+import { useToast, FormControl, FormErrorMessage, FormHelperText, IconButton, Stack, Button, Container, Input, Text, Heading, Table, Thead, Tbody, Tfoot, Tr, Th, Td, Box, getDividerStyles, HStack, FormLabel, Textarea, Flex } from '@chakra-ui/react'
 import SideNavigationBar from '../../../components/SideNavigationBar'
 import { getUser, updateUser } from '../../../data/user'
 import FormikError from '../../../components/FormikError'
 import FormInput from '../../../components/FormInput'
 import { Form, Formik } from 'formik'
-import userEditclVerify from '../../../validations/userEditclVerify'
+import userCreateVerify from '../../../validations/userCreateVerify'
 
 
 export async function getServerSideProps(context) {
@@ -79,6 +79,8 @@ const Usuario = ({ data }) => {
             })
         }
     }
+
+    const toast = useToast()
     return (
         <>
             <SideNavigationBar></SideNavigationBar>
@@ -88,7 +90,7 @@ const Usuario = ({ data }) => {
                 </HStack>
                 <Formik
                     initialValues={values}
-                    validationSchema={userEditclVerify}
+                    validationSchema={userCreateVerify}
                     onSubmit={onSubmit}
                 >
                     {({

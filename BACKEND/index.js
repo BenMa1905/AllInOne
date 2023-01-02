@@ -4,8 +4,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const app = express();
 const path = require('path');
-//const multer = require('multer');
-const cookieParser = require('cookie-parser');
+const multer = require('multer');
+//const {verefyToken} = require('./lib/verifyToken');
 dotenv.config();
 
 const supplyRoutes = require('./routes/supplyRoutes'); 
@@ -16,14 +16,12 @@ const scheduleRoutes = require('./routes/scheduleRoutes');
 const mailerRoutes = require('./routes/mailerRoutes');
 const paymentrecordRoutes = require('./routes/paymentrecordRoutes');
 const ledgerRoutes =require('./routes/ledgerRoutes');
-const { use } = require('./routes/supplyRoutes');
 
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
-app.use(cookieParser());
+
+app.use(cors());
 app.use(express.json());
 app.options('*', cors());
 app.use(express.urlencoded({ extended: false }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api', supplyRoutes);
 app.use('/api', machineRoutes);
 app.use('/api', userRoutes);

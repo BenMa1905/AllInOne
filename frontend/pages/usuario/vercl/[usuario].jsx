@@ -44,7 +44,7 @@ const Usuario = ({ data }) => {
     return (
         <>
             <SideNavigationBar />
-            <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
+            <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto">
             <Heading my={10}> Usuario: {user.name}</Heading>
             <Stack>
                 <ShowInfo tag="Nombre" data={user.name} color="black.500" />
