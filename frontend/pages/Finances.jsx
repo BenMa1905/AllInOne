@@ -101,9 +101,9 @@ export default function Finances(viewportSize) {
             return libro.map(ledger => {
                 return (
                     <Tr key={ledger._id}>
-                        <Td fontFamily={'inherit'} fontWeight={'light'} color={"green.500"} >$    {ledger.cashBalance.toLocaleString()}</Td>
-                        <Td fontFamily={'inherit'} fontWeight={'light'} color={"green.500"} >$    {ledger.debitBalance.toLocaleString()}</Td>
-                        <Td fontFamily={'inherit'} fontWeight={'light'} color={"red.500"} >$    {ledger.totalDebt.toLocaleString()}</Td>
+                        <Td >$    {ledger.cashBalance.toLocaleString()}</Td>
+                        <Td >$    {ledger.debitBalance.toLocaleString()}</Td>
+                        <Td >$    {ledger.totalDebt.toLocaleString()}</Td>
                         <Td display={'flex'} mx="10" justifyContent="space-evenly"><IconButton onClick={onInfo} aria-label='Search database' icon={<InfoIcon />} /></Td>
                     </Tr>
                 )
@@ -138,7 +138,7 @@ export default function Finances(viewportSize) {
             <SideNavigationBar {...viewportSize}/>
             <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='60vw' margin=" 7.5rem auto">
                 <Heading textAlign={'center'}>Libro contable</Heading>
-                <Table borderRadius={"2rem"} padding={'10'} variant={"striped"}>
+                <Table bg="skyblue" mb='10px' border='10px' borderColor={'black'} style={{ borderCollapse: 'collapse' }}>
                     <Thead>
                         <Tr>
                             <Td>Dinero en efectivo</Td>
