@@ -43,19 +43,40 @@ const supply = ({ data }) => {
     const toast = useToast()
 
     const onEdit = async (e) => {
-        e.preventDefault()
-        try {
-            const response = await axios.put(`${process.env.API_URL}/supply/update/${data._id}`, values)
-            if (response.status == 200) {
-                toast({
-                    title: 'Cambios guardados.',
-                    description: "El suministro se registro con éxito.",
-                    status: 'success',
-                    duration: 4000,
-                    isClosable: true,
-                })
-                router.push('/Supply')
-            } else {
+        if (values.name == '' || values.price == '' || values.quantity == '' || values.description == '') {
+            toast({
+                title: 'Error: Todos los campos son obligatorios.',
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+            })
+            return false;
+        } else {
+            e.preventDefault()
+            try {
+                const response = await axios.put(`${process.env.API_URL}/supply/update/${data._id}`, values)
+                if (response.status == 200) {
+                    toast({
+                        title: 'Cambios guardados.',
+                        description: "El suministro se registro con éxito.",
+                        status: 'success',
+                        duration: 4000,
+                        isClosable: true,
+                    })
+                    router.push('/Supply')
+                } else {
+                    toast({
+                        title: 'Error al editar suministro.',
+                        description: "El suministro no se pudo editar.",
+                        status: 'error',
+                        duration: 4000,
+                        isClosable: true,
+                    })
+                }
+
+            }
+            catch (err) {
+                console.log(err)
                 toast({
                     title: 'Error al editar suministro.',
                     description: "El suministro no se pudo editar.",
@@ -64,17 +85,6 @@ const supply = ({ data }) => {
                     isClosable: true,
                 })
             }
-
-        }
-        catch (err) {
-            console.log(err)
-            toast({
-                title: 'Error al editar suministro.',
-                description: "El suministro no se pudo editar.",
-                status: 'error',
-                duration: 4000,
-                isClosable: true,
-            })
         }
     }
 
