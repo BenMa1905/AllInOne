@@ -61,20 +61,29 @@ const Usuarios = () => {
 				}) => (
 					<form onSubmit={handleSubmit} id="form">
 						<Stack>
+							<FormLabel fontFamily={'inherit'} fontWeight={'light'}>Nombre</FormLabel>
 							<FormInput onChange={handleChange} placeholder="Nombre" label="Nombre" type={"text"} name={"name"} onBlur={handleBlur} value={values.name} />
 							{touched.name && errors.name && <FormikError error={errors.name} />}
+							<FormLabel fontFamily={'inherit'} fontWeight={'light'}>Rut</FormLabel>
 							<FormInput id='rut' onChange={handleChange} placeholder="12345678-k" label="Rut" type={"text"} name={"rut"} onBlur={handleBlur} value={values.rut} />
 							{touched.rut && errors.rut && <FormikError error={errors.rut} />}
+							<FormLabel fontFamily={'inherit'} fontWeight={'light'}>Correo</FormLabel>
 							<FormInput onChange={handleChange} placeholder="email" label="email" type={"text"} name={"email"} onBlur={handleBlur} value={values.email} />
 							{touched.email && errors.email && <FormikError error={errors.email} />}
-							<FormInput onChange={handleChange} placeholder="birthdate" label="birthdate" type={"date"} name={"birthdate"} onBlur={handleBlur} value={values.birthdate} />
+							<FormLabel fontFamily={'inherit'} fontWeight={'light'}>Fecha de nacimiento</FormLabel>
+							<FormInput onChange={handleChange} placeholder="Fecha de nacimiento" label="birthdate" type={"date"} name={"birthdate"} onBlur={handleBlur} value={values.birthdate} />
 							{touched.birthdate && errors.birthdate && <FormikError error={errors.birthdate} />}
-							<FormInput onChange={handleChange} placeholder="address" label="Direcion" type={"text"} name={"address"} onBlur={handleBlur} value={values.address} />
+							<FormLabel fontFamily={'inherit'} fontWeight={'light'}>Direccion</FormLabel>
+							<FormInput onChange={handleChange} placeholder="Direccion" label="Direccion" type={"text"} name={"address"} onBlur={handleBlur} value={values.address} />
 							{touched.address && errors.address && <FormikError error={errors.address} />}
-							<FormInput onChange={handleChange} placeholder="telephone" label="telephone" type={"text"} name={"telephone"} onBlur={handleBlur} value={values.telephone} />
+							<FormLabel fontFamily={'inherit'} fontWeight={'light'}>telephone</FormLabel>
+							<FormInput onChange={handleChange} placeholder="Telefono" label="telephone" type={"text"} name={"telephone"} onBlur={handleBlur} value={values.telephone} />
 							{touched.telephone && errors.telephone && <FormikError error={errors.telephone} />}
-							<FormInput onChange={handleChange} placeholder="role" label="role" type={"text"} name={"role"} onBlur={handleBlur} value={values.role} />
-							{touched.role && errors.role && <FormikError error={errors.role} />}
+							<FormLabel fontFamily={'inherit'} fontWeight={'light'}>Rol</FormLabel>
+							<Select onChange={handleChange} placeholder='Seleccione el rol' name={"role"} onBlur={handleBlur} value={values.role}>
+                                    <option value='admin'>Admin </option>
+                                    <option value='client'>Cliente</option>
+                                </Select>
 						</Stack>
 						<Button colorScheme="teal" size="md" type="submit" my={5} onClick={handleSubmit}> Crear usuario </Button>
 					</form>

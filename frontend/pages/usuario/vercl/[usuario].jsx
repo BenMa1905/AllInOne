@@ -37,58 +37,9 @@ const Usuario = ({ data }) => {
         window.history.replaceState({},document.title, clean_url);
         console.log(url)
     }, [])
-    const [Id, setId] = useState();
-    const [role, setRole] = useState();
-    useEffect(() => {async function decodificador(){
-    try {
-        const decoded = jwt.decode(document.cookie.split('=')[1],process.env.SECRET_KEY)
-        if (decoded) {
-            // console.log(decoded)
-            setId(decoded.sub)
-            setRole(decoded.role)
-        }
-        if (decoded.sub !== user._id && decoded.role === 'client') {
-            document.getElementById("clt").style.display = "none";
-            console.log(user._id)
-            console.log(decoded.sub)
-            }
-    } catch (error) { }
-    }
-    decodificador()
-    }, [
-    ])
 
     const router = useRouter()
     const [user] = useState(data)
-
-    const handleDelete = async () => {
-        try {
-            const response = await axios.delete(`${process.env.API_URL}/user/delete/${user._id}`)
-            if (response.status === 200) {
-                console.log("se borro el usuario: " + user._id)
-                alert("se borro el usuario")
-
-            }
-        } catch (error) {
-            console.log(error)
-            alert("ERROR no se borro el usuario")
-
-        }
-
-    }
-        if(role === 'client'){
-            document.getElementById("adm").style.display = "none";
-        }
-        // useEffect(() => {
-        //     const element = findDOMNode(ref.current);
-        //     element.style.display = (Id != user._id) ? "none" : "block";
-        // }, []);
-
-        // const ref = useRef(null);
-
-        useEffect(() => {
-        }, [Id, user]);
-
 
     return (
         <>
@@ -102,13 +53,10 @@ const Usuario = ({ data }) => {
                 <ShowInfo tag="Fecha de nacimiento" data={user.birthdate} color="black.500" />
                 <ShowInfo tag="Direccion" data={user.address} color="black.500" />
                 <ShowInfo tag="Telefono" data={user.telephone} color="black.500" />
-                <ShowInfo tag="Rol" data={user.role} color="black.500" />
-                <ShowInfo tag="Creado el" data={user.createdDate} color="black.500" />
             </Stack>
             <Box/>
             <Stack>
-                <Button id={"adm"} w={"full"} colorScheme={"green"} onClick={() => handleDelete()}>Eliminar</Button>
-                <Button id="clt" w={"full"} colorScheme={"orange"} onClick={() => router.push(`/usuario/editar/${user._id}`)}>editar</Button>
+                <Button id="clt" w={"full"} colorScheme={"orange"} onClick={() => router.push(`/usuario/editarcl/${user._id}`)}>editar</Button>
                 <Button w={"full"} colorScheme={"orange"} onClick={() => router.push('/usuarios')}>Volver</Button>
                 </Stack>
         </Container>

@@ -8,7 +8,7 @@ const tokenCreate = (user) => {
         name: user.name,
         role:user.role,
         iat: moment().unix(),
-        exp: Math.floor(Date.now() / 1000) + 60,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7,
     }
     //console.log(payload)
     return jwt.encode(payload, process.env.SECRET_KEY);

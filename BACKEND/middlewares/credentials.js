@@ -8,8 +8,10 @@ const auth = (req, res, next) => {
     if (!cookies.token || !cookies.token === null) {
         return res.status(401).send({ message: 'No autorizado' });
     }
+    
     try {
         const payload = jwt.decode(cookies.token, process.env.SECRET_KEY);
+        console.log(payload)
         if (payload.exp <= moment().unix()) {
             return res.status(401).send({ message: 'Token expirado' });
         }
