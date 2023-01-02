@@ -43,7 +43,7 @@ export const config = {
 
 const onlyAdminPage = (url) => {
 
-    const adminpage = ["/usuarios"]
+    const adminpage = ["/usuarios","/maquina/:path","/maquinaria/:path","/registrodepago/:path","/registro/:path"]
     for (let i = 0; i < adminpage.length; i++) {
         if (adminpage[i] === url) {
             return true
