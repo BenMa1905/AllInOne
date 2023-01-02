@@ -1,19 +1,18 @@
 const User = require('../models/user');
 const Membership = require('../models/membership');
-const bcrypt = require('bcrypt');
+const {tokenCreate} = require('../createToken/tokenCreate');
 
 const createUser = async (req, res) => {
-    const password = await bcrypt.hash(req.body.password, 10);
     const { name, rut, email,birthdate, address, telephone, role} = req.body
-    
+
     const newMembership = new Membership({
         state : "unpaid",
-        remainingHours : 12, 
+        remainingHours : 12,
         totalDebt : 0
     })
     const membership = newMembership._id;
-    const newUser = new User({ name, rut, email,birthdate, address, telephone, role, password, membership });
-    
+    const newUser = new User({ name, rut, email,birthdate, address, telephone, role, membership });
+
     newMembership.save((error, mMembership) => {
         if (error) {
             return res.status(400).send({ message: "No se ha podido crear la membresia" })
@@ -26,30 +25,39 @@ const createUser = async (req, res) => {
             }
             return res.status(201).send(user);
         })
-        
     })
 }
 
 const login = async (req, res) => {
-    const { email, password } = req.body;
-    User.findOne({ email }, (err, user) => {
+    const {rut} = req.body
+    // console.log(req.body)
+    // let rut = req.body.rut
+    // rut = rut.toLowerCase();
+    User.findOne({ rut }, (err, user) => {
         if (err) {
             return res.status(400).send({ message: 'Error al iniciar sesión' });
         }
         if (!user) {
             return res.status(404).send({ message: 'No se encontró el usuario' });
         }
-        bcrypt.compare(password, user.password, (err, result) => {
-            if (err) {
-                return res.status(400).send({ message: 'Error al iniciar sesión' });
-            }
-            if (!result) {
-                return res.status(404).send({ message: 'Contraseña incorrecta' });
-            }
-            return res.status(200).send(user);
-        })
+        res.cookie("token", tokenCreate(user), { httpOnly: true })
+        return res.status(200).send({ message: 'Se ha logeado correctamente', token: tokenCreate(user), user: user.name });
     })
 }
+
+const logout = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(400).send({ message: 'Error al cerrar sesión' });
+        }
+        return res.status(200).send({ message: 'Sesión cerrada' });
+    })
+}
+
+const verifyToken = (req, res) => {
+    return res.status(200).send({ message: 'Token válido', payload: req.body });
+}
+
 
 const getUsers = async (req, res) => {
     User.find({}).populate({ path: 'membership'}).exec((err, user) => {
@@ -73,9 +81,38 @@ const getUser = (req, res) => {
     })
 }
 
+const getRutUser = (req, res) => {
+    const { rut } = req.params;
+    User.find({ rut: rut }, (error, user) => {
+        if (error) {
+            return res
+                .status(400)
+                .send({ message: "Rut del usuario no encontrado" });
+        }
+        if (!user) {
+            return res.status(404).send({ message: "Usuario no encontrado" });
+        }
+        return res.status(200).send(user);
+    });
+};
+
+const getNameUser = (req, res) => {
+
+    const { id } = req.params
+    User.findById(id, (error, user) => {
+        if (error) {
+            return res.status(400).send({ message: "No se ha logrado mostrar al usuario" })
+        }
+        if (!user) {
+            return res.status(404).send({ message: "No se encontró el usuario" })
+        }
+        return res.status(200).send(user)
+    })
+}
+
 const updateUser = async (req, res) => {
     const { id } = req.params;
-    User.findByIdAndDelete(id, req.body, (err, user) => {
+    User.findByIdAndUpdate(id, req.body, (err, user) => {
         if (err) {
             return res.status(400).send({ message: 'Error al actualizar el usuario' });
         }
@@ -86,16 +123,16 @@ const updateUser = async (req, res) => {
     })
 }
 
-const deleteUser = async (req, res) => {
-    const { id } = req.params;
-    User.findByIdAndDelete(id, (err, user) => {
-        if (err) {
-            return res.status(400).send({ message: 'Error al eliminar el usuario' });
+const deleteUser = (req, res) => {
+    const { id } = req.params
+    User.findByDelete(id, (error, user) => {
+        if (error) {
+            return res.status(400).send({ message: "No se ha podido eliminar el usuario" })
         }
         if (!user) {
-            return res.status(404).send({ message: 'No se encontró el usuario' });
+            return res.status(404).send({ message: "No se ha podido encontrar el usuario" })
         }
-        return res.status(200).send(user);
+        return res.status(200).send({ message: "Se ha eliminado el usuario de forma correcta" })
     })
 }
 
@@ -116,8 +153,12 @@ module.exports = {
     createUser,
     getUsers,
     getUser,
+    getNameUser,
+    getRutUser,
     updateUser,
     deleteUser,
+    updateImgUser,
     login,
-    updateImgUser
+    logout,
+    verifyToken
 }
