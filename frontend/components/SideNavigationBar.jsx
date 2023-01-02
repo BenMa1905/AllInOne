@@ -35,6 +35,9 @@ const SideNavigationBar = (viewportSize) => {
     const [decoded, setdecoded] = useState();
     const [userName, setusername] = useState();
     const [userId, setSub] = useState();
+    const [role, setRole] = useState();
+
+
 
     useEffect(() => {
         async function decodificador() {
@@ -44,7 +47,7 @@ const SideNavigationBar = (viewportSize) => {
                     setdecoded(decoded)
                     setusername(decoded.name)
                     setSub(decoded.sub)
-                    // console.log(decoded)
+                    setRole(decoded.role)
                 }
             } catch (error) { }
         }
@@ -117,22 +120,6 @@ const SideNavigationBar = (viewportSize) => {
                     <Divider borderColor="brand.500" borderWidth="1px" borderStyle="dashed" mb={10} />
 
                     <DrawerBody p={0}>
-                        <Button
-
-                            rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
-                            colorScheme='white' color='black'
-                            display="flex" justifyContent="space-between" alignItems="center"
-
-                            leftIcon={<HomeIcon fill={homeButtCol} width="42" height="42" />}
-
-                            _hover={{ bg: "brand.500" }}
-                            onMouseLeave={() => setHomeButtCol(generalColor)}
-                            onMouseEnter={() => setHomeButtCol("#FFFFFF")}
-
-                            onClick={() => router.push('/userPage', '/Usuario')} >
-
-                            <Text ml='7' mr='auto'>Inicio</Text>
-                        </Button>
 
                         <Button
 
@@ -169,56 +156,59 @@ const SideNavigationBar = (viewportSize) => {
                             <Text ml='6' mr='auto' >Agendamientos previos</Text>
                         </Button>
 
-                        <Button
-                            rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
-                            colorScheme='white' color='black'
-                            display="flex" justifyContent="space-between" alignItems="center"
-                            leftIcon={<FinancesIcon fill={financesButtCol} width="42" height="42" />}
-                            _hover={{ bg: "brand.500" }}
-                            onMouseLeave={() => setFinancesButtCol(generalColor)}
-                            onMouseEnter={() => setFinancesButtCol("#FFFFFF")}
-                            onClick={() => router.push('/Finances')}
-                        >
-                            <Text ml='6' mr='auto' >Ver Finanzas</Text>
-                        </Button>
+                        {role === 'admin' && (<>
+                            <Button
+                                rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
+                                colorScheme='white' color='black'
+                                display="flex" justifyContent="space-between" alignItems="center"
+                                leftIcon={<FinancesIcon fill={financesButtCol} width="42" height="42" />}
+                                _hover={{ bg: "brand.500" }}
+                                onMouseLeave={() => setFinancesButtCol(generalColor)}
+                                onMouseEnter={() => setFinancesButtCol("#FFFFFF")}
+                                onClick={() => router.push('/Finances')}
+                            >
+                                <Text ml='6' mr='auto' >Ver Finanzas</Text>
+                            </Button>
 
-                        <Button
-                            rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
-                            colorScheme='white' color='black'
-                            display="flex" justifyContent="space-between" alignItems="center"
-                            leftIcon={<SupplyIcon fill={supplyButtCol} width="42" height="42" />}
-                            _hover={{ bg: "brand.500" }}
-                            onMouseLeave={() => setSupplyButtCol(generalColor)}
-                            onMouseEnter={() => setSupplyButtCol("#FFFFFF")}
-                            onClick={() => router.push('/Supply')}
-                        >
-                            <Text ml='6' mr='auto' >Ver suministros</Text>
-                        </Button>
+                            <Button
+                                rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
+                                colorScheme='white' color='black'
+                                display="flex" justifyContent="space-between" alignItems="center"
+                                leftIcon={<SupplyIcon fill={supplyButtCol} width="42" height="42" />}
+                                _hover={{ bg: "brand.500" }}
+                                onMouseLeave={() => setSupplyButtCol(generalColor)}
+                                onMouseEnter={() => setSupplyButtCol("#FFFFFF")}
+                                onClick={() => router.push('/Supply')}
+                            >
+                                <Text ml='6' mr='auto' >Ver suministros</Text>
+                            </Button>
 
-                        <Button
-                            rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
-                            colorScheme='white' color='black'
-                            display="flex" justifyContent="space-between" alignItems="center"
-                            leftIcon={<WashingMachineIcon fill={WashingButtCol} width="42" height="42" />}
-                            _hover={{ bg: "brand.500" }}
-                            onMouseLeave={() => setWashingButtCol(generalColor)}
-                            onMouseEnter={() => setWashingButtCol("#FFFFFF")}
-                            onClick={() => router.push('/maquinaria')}
-                        >
-                            <Text ml='6' mr='auto' >Ver Maquinaria</Text>
-                        </Button>
-                        <Button
-                            rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
-                            colorScheme='white' color='black'
-                            display="flex" justifyContent="space-between" alignItems="center"
-                            leftIcon={<MoneyIcon fill={MoneyButtCol1} width="42" height="42" />}
-                            _hover={{ bg: "brand.500" }}
-                            onMouseLeave={() => setMoneyButtCol1(generalColor)}
-                            onMouseEnter={() => setMoneyButtCol1("#FFFFFF")}
-                            onClick={() => router.push('/registrodepago')}
-                        >
-                            <Text ml='6' mr='auto' >Ver registro de pago</Text>
-                        </Button>
+                            <Button
+                                rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
+                                colorScheme='white' color='black'
+                                display="flex" justifyContent="space-between" alignItems="center"
+                                leftIcon={<WashingMachineIcon fill={WashingButtCol} width="42" height="42" />}
+                                _hover={{ bg: "brand.500" }}
+                                onMouseLeave={() => setWashingButtCol(generalColor)}
+                                onMouseEnter={() => setWashingButtCol("#FFFFFF")}
+                                onClick={() => router.push('/maquinaria')}
+                            >
+                                <Text ml='6' mr='auto' >Ver Maquinaria</Text>
+                            </Button>
+                            <Button
+                                rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
+                                colorScheme='white' color='black'
+                                display="flex" justifyContent="space-between" alignItems="center"
+                                leftIcon={<MoneyIcon fill={MoneyButtCol1} width="42" height="42" />}
+                                _hover={{ bg: "brand.500" }}
+                                onMouseLeave={() => setMoneyButtCol1(generalColor)}
+                                onMouseEnter={() => setMoneyButtCol1("#FFFFFF")}
+                                onClick={() => router.push('/registrodepago')}
+                            >
+                                <Text ml='6' mr='auto' >Ver registro de pago</Text>
+                            </Button>
+
+                        </>)}
                         <Button
                             rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
                             colorScheme='white' color='black'

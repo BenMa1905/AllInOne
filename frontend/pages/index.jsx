@@ -16,7 +16,7 @@ export const getServerSideProps = async (context) => {
 		if (response.status === 200) {
 			return {
 				redirect: {
-					destination: "/usuarios",
+					destination: "/scheduling",
 					permanent: false
 				}
 			}
@@ -46,10 +46,9 @@ const Home = ({ data }) => {
 		e.preventDefault()
 		try {
 			const response = await login(user.rut)
-			// console.log(response)
 			if (response.status === 200) {
 				Cookie.set("token", response.data.token, { expires: 1 })
-				router.push("/usuarios")
+				router.push("/scheduling")
 			}
 		} catch (error) {
 			console.log(error)

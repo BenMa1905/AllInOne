@@ -52,7 +52,7 @@ const Maquina = ({ data },viewportSize) => {
     }
     return ( <>
         <SideNavigationBar {...viewportSize}/>
-        <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{opacity: 0.9}}   centerContent >
+        <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
             <Heading my={10}> Maquina: {machine.name}</Heading>
             <Stack w={"full"}>
                 <ShowInfo tag="Nombre" data={machine.name} color="blue.500" />

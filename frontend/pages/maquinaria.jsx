@@ -56,8 +56,8 @@ const getMachines = async () => {
     return (
         <>
         <SideNavigationBar {...viewportSize}/>
-        <Container  bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{opacity: 0.9}}  maxW="container.xl" centerContent>
-            <Heading textAlign={"center"} my={20}>maquina</Heading>
+        <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
+            <Heading textAlign={"center"} my={20}>Maquina</Heading>
             <HStack w={"full"} py={10} >
                 <Button colorScheme="blue" onClick={() => router.push('/maquina/crear')}>Crear maquina
                 </Button>
@@ -66,7 +66,7 @@ const getMachines = async () => {
                 <FormLabel color='white' style={{backgroundColor:'hsl(220, 100%, 60%)',border: '1px solid black', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'}} mb='10px' bg="skyblue" ><Icon as={Search2Icon} /> Buscar maquina</FormLabel>
                 <Input  bg="white" placeholderColor='white !important' style={{backgroundColor:'#87CEEB'}} mb='10px'   border='1px' borderColor={'black'} onChange={(e)=>getMachine(e.target.value)} placeholder=" ingrese serial "  type='string'  />
             </FormControl>
-            <Table  bg="skyblue" mb='10px' border='10px' borderColor={'black'} style={{borderCollapse: 'collapse'}} >
+            <Table bg="skyblue" mb='10px' rounded={"xl"} >
                 <Thead >
                     <Tr >
                         <Td>Nombre </Td>

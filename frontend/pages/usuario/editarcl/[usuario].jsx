@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { useToast, FormControl, Button, Container, Heading, HStack, FormLabel, Flex } from '@chakra-ui/react'
+import { useToast, FormControl, FormErrorMessage, FormHelperText, IconButton, Stack, Button, Container, Input, Text, Heading, Table, Thead, Tbody, Tfoot, Tr, Th, Td, Box, getDividerStyles, HStack, FormLabel, Textarea, Flex } from '@chakra-ui/react'
 import SideNavigationBar from '../../../components/SideNavigationBar'
 import { getUser, updateUser } from '../../../data/user'
 import FormikError from '../../../components/FormikError'
 import FormInput from '../../../components/FormInput'
 import { Form, Formik } from 'formik'
-import userEditclVerify from '../../../validations/userEditclVerify'
+import userCreateVerify from '../../../validations/userCreateVerify'
 
 
 export async function getServerSideProps(context) {
@@ -79,16 +79,18 @@ const Usuario = ({ data }) => {
             })
         }
     }
+
+    const toast = useToast()
     return (
         <>
             <SideNavigationBar></SideNavigationBar>
-            <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto">
+            <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
                 <Heading textAlign={'center'} fontFamily={'inherit'} fontWeight={'light'} >Editar usuario</Heading>
                 <HStack>
                 </HStack>
                 <Formik
                     initialValues={values}
-                    validationSchema={userEditclVerify}
+                    validationSchema={userCreateVerify}
                     onSubmit={onSubmit}
                 >
                     {({
@@ -115,7 +117,6 @@ const Usuario = ({ data }) => {
                                 <FormInput type="text" placeholder={user.telephone} name="telephone" onChange={handleChange} onBlur={handleBlur} value={values.telephone} />
                                 {touched.telephone && errors.telephone && <FormikError error={errors.telephone} />}
                             </FormControl>
-                            {/* <Input className="form-control" type="file" id="formFile" name='archivos' onChange={handleFileChange} accept="image/*" /> */}
                             <Flex justifyContent={"space-around"}>
                                 <Button colorScheme={"teal"} size={"md"} type={"submit"} my={"5"} onClick={handleSubmit}>Guardar cambios</Button>
                                 <Button colorScheme={"red"} size={"md"} type={"submit"} my={"5"} onClick={() => router.push('/usuarios')}>Volver</Button>

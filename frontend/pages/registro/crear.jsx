@@ -26,7 +26,7 @@ const Registrodepago = (viewportSize) => {
 	}, [])
 	return (<>
 		<SideNavigationBar {...viewportSize} />
-		<Container bg='whiteAlpha.800' borderRadius={"2rem"} minH={"20vh"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{ opacity: 0.9 }} >
+		<Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden' >
 			<Heading textAlign={"center"} my={10}>Crear registro</Heading>
 			<Formik
 				initialValues={{

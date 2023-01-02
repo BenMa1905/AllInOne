@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { useToast, FormControl, FormErrorMessage, Select, Button, Container, Heading, HStack, FormLabel, Flex } from '@chakra-ui/react'
+import { useToast, FormControl, FormErrorMessage, FormHelperText, IconButton, Stack, Button, Container, Input, Text, Heading, Table, Thead, Tbody, Tfoot, Tr, Th, Td, Box, getDividerStyles, HStack, FormLabel, Textarea, Flex } from '@chakra-ui/react'
 import SideNavigationBar from '../../../components/SideNavigationBar'
 import { getUser, updateUser } from '../../../data/user'
 import FormikError from '../../../components/FormikError'
@@ -88,7 +88,7 @@ const Usuario = ({ data }) => {
     return (
         <>
             <SideNavigationBar></SideNavigationBar>
-            <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto">
+            <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
                 <Heading textAlign={'center'} fontFamily={'inherit'} fontWeight={'light'} >Editar usuario</Heading>
                 <HStack>
                 </HStack>
@@ -135,10 +135,7 @@ const Usuario = ({ data }) => {
                             </FormControl>
                             <FormLabel fontFamily={'inherit'} fontWeight={'light'}>Rol</FormLabel>
                             <FormControl borderRadius={"1rem"} bg={'white'}>
-                            <Select onChange={handleChange} placeholder={user.role} name={"role"} onBlur={handleBlur} value={values.role}>
-                                    <option value='admin'>Admin </option>
-                                    <option value='client'>Cliente</option>
-                                </Select>
+                                <FormInput type="text" placeholder={user.role} name="role" onChange={handleChange} onBlur={handleBlur} value={values.role} />
                                 {touched.role && errors.role && <FormikError error={errors.role} />}
                             </FormControl>
                             <Flex justifyContent={"space-around"}>

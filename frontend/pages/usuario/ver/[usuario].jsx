@@ -32,8 +32,8 @@ export async function getServerSideProps(context) {
 const Usuario = ({ data }) => {
 
     useEffect(() => {
-        const url = window.location.toString();
-        const clean_url = url.substring(0, url.lastIndexOf('/'));
+        var url = window.location.toString();
+        var clean_url = url.substring(0, url.lastIndexOf('/'));
         window.history.replaceState({},document.title, clean_url);
         console.log(url)
     }, [])
@@ -47,7 +47,7 @@ const Usuario = ({ data }) => {
             setId(decoded.sub)
             setRole(decoded.role)
         }
-        if (decoded.sub !== user._id && decoded.role === 'client') {
+        if (decoded.sub !== user._id) {
             document.getElementById("clt").style.display = "none";
             console.log(user._id)
             console.log(decoded.sub)
@@ -93,7 +93,7 @@ const Usuario = ({ data }) => {
     return (
         <>
             <SideNavigationBar />
-            <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto">
+            <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
             <Heading my={10}> Usuario: {user.name}</Heading>
             <Stack>
                 <ShowInfo tag="Nombre" data={user.name} color="black.500" />

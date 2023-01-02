@@ -14,63 +14,60 @@ import axios from 'axios'
 const jwt = require('jwt-simple');
 
 export async function getServerSideProps(context) {
-    try {
-		const decoded = jwt.decode(context.req.headers.cookie.split('=')[1], process.env.SECRET_KEY)
-		console.log(decoded)
-        let response = await axios.get(`${process.env.API_URL}/schedules/` + null)
-		
-		console.log(response.data)
-		
-		if(response.status === 200){
+	try {
+		let response = await axios.get(`${process.env.API_URL}/schedules/` + null)
+
+
+		if (response.status === 200) {
 			return {
 				props: {
 					data: response.data
 				}
 			}
-		}else{
+		} else {
 			return {
 				props: {
 					data: false
 				}
 			}
 		}
-        
-    } catch (err) {
+
+	} catch (err) {
 		console.log(err)
 		let previousPageUrl = context.req.headers.referer;
-		if(!previousPageUrl){ previousPageUrl = '/' }
+		if (!previousPageUrl) { previousPageUrl = '/' }
 		return {
-            redirect: {
-                destination: previousPageUrl,
-                permanent: true
-            }
-        }
-    }
+			redirect: {
+				destination: previousPageUrl,
+				permanent: true
+			}
+		}
+	}
 }
 
 
 const schedules = (props) => {
 
-	const formatSchedules = (schedules) =>{
-		if(!schedules){ return null}
-		return schedules.map((sched)=>{
+	const formatSchedules = (schedules) => {
+		if (!schedules) { return null }
+		return schedules.map((sched) => {
 			return {
 				id: sched._id,
 				description: (sched.state === 'maintenace' ? 'maintenace' : (sched.dryingMachine != null ? 'washingDrying' : 'washing')),
 				date: sched.startTime.split('T')[0],
 				stTime: sched.startTime.split('T')[1].substring(0, 5),
 				edTime: sched.endTime.split('T')[1].substring(0, 5),
-				serial: (sched.washingMachine ?sched.washingMachine.serial : '??') + (sched.dryingMachine ? " #"+sched.dryingMachine.serial : ''),
+				serial: (sched.washingMachine ? sched.washingMachine.serial : '??') + (sched.dryingMachine ? " #" + sched.dryingMachine.serial : ''),
 				user: sched.user.name
 			}
 		})
-	} 
+	}
 	const router = useRouter()
 	const theme = useTheme()
 	const brandCol500 = theme.colors.brand[500]
 	const brandCol100 = theme.colors.brand[100]
-	const [items, setItems] = useState(formatSchedules(props.data)); 
-	
+	const [items, setItems] = useState(formatSchedules(props.data));
+
 	const [searchTerm, setSearchTerm] = useState({
 		serial: '',
 		stDate: '',
@@ -78,11 +75,11 @@ const schedules = (props) => {
 		user: '',
 		useType: '-'
 	});
-	const [sortColumn, setSortColumn] = useState('date'); 
-	const [sortDirection, setSortDirection] = useState('asc'); 
+	const [sortColumn, setSortColumn] = useState('date');
+	const [sortDirection, setSortDirection] = useState('asc');
 	console.log(props)
 	const filteredItems = (!items ? null : (items.filter(item => {
-		
+
 		return ((props.role === 'admin' || item.user.toLowerCase() === props.name) &&
 			item.serial.toString().includes(searchTerm.serial) && item.user.toLowerCase().includes(searchTerm.user.toLowerCase()) &&
 			(searchTerm.useType === '-' || item.description === searchTerm.useType) &&
@@ -119,12 +116,12 @@ const schedules = (props) => {
 
 		}
 	}
-	const showSchedule = (e) =>{
-		router.push('/schedule/'+e)
+	const showSchedule = (e) => {
+		router.push('/schedule/' + e)
 	}
-//20489055-5
-	const showSchedules = ()=>{
-		if(!sortedItems){ return <Text mx ='auto' fontSize='3vw' textAlign='center'> No hay agendamientos </Text> }
+	//20489055-5
+	const showSchedules = () => {
+		if (!sortedItems) { return <Text mx='auto' fontSize='3vw' textAlign='center'> No hay agendamientos </Text> }
 
 		return sortedItems.map((schedule, i, arr) => (
 			<Tr key={schedule.id} w='100%' borderTop='0' borderBottom='dashed' borderWidth={i < arr.length - 1 ? '1px' : '0'} borderBottomColor='brand.500' display='flex' justifyContent='space-between' alignItems='center'>
@@ -162,7 +159,7 @@ const schedules = (props) => {
 				</Td>
 
 				<Td w='17%' display='flex' justifyContent='center' alignItems='center'>
-					<Button onClick={(e)=> showSchedule(schedule.id)} bg='brand.500' border='1px' borderColor='brand.500' color='white' _hover={{ color: 'brand.500', bg: 'white' }} title='Ver agendamiento' >
+					<Button onClick={(e) => showSchedule(schedule.id)} bg='brand.500' border='1px' borderColor='brand.500' color='white' _hover={{ color: 'brand.500', bg: 'white' }} title='Ver agendamiento' >
 						<ScheduleIcon width='30px' height='30px' fill='currentcolor' />
 						<FaEye style={{ marginLeft: '-8px', marginTop: '5px' }} width='30px' height='30px' fill='currentcolor' /> </Button>
 				</Td>
@@ -274,24 +271,24 @@ const schedules = (props) => {
 									<Box borderRight='1px' mt='6px' w='2px' maxW='2px' borderRightColor='brand.500' h='20px' />
 								</Th>
 								<Th w='100%' >Expandir</Th>
-								
+
 							</Tr>
-							
-							<Tr mt = '0' maxH = '10px' p = '0' w = 'full%'>
-								<Td mt = '0' w = 'full%' p = '0' maxH = '10px' mx = '0'>
-									<Box mt = '0' mb = 'auto' h='10px' w='full' style={{ background: 'linear-gradient(to bottom, rgba(0.9, 0.9, 0.9, 0.2), rgba(0.9, 0.9, 0.9, 0))' }} />
+
+							<Tr mt='0' maxH='10px' p='0' w='full%'>
+								<Td mt='0' w='full%' p='0' maxH='10px' mx='0'>
+									<Box mt='0' mb='auto' h='10px' w='full' style={{ background: 'linear-gradient(to bottom, rgba(0.9, 0.9, 0.9, 0.2), rgba(0.9, 0.9, 0.9, 0))' }} />
 								</Td>
 							</Tr>
-							
+
 						</Thead>
-						
+
 						<Box as={Tbody} minW='800px' overflowY='scroll' maxH='500px' display='flex' justifyContent='start' alignItems='start' flexWrap='wrap'>
-							{ showSchedules()}
+							{showSchedules()}
 						</Box>
 					</Table>
 				</Box>
 
-				<Box w='70vw' bg='white' h='20px' roundedBottom='xl' mb = '30px' border='1px' borderColor='black' borderTop='dashed' borderTopColor='brand.500' />
+				<Box w='70vw' bg='white' h='20px' roundedBottom='xl' mb='30px' border='1px' borderColor='black' borderTop='dashed' borderTopColor='brand.500' />
 
 			</Container>
 		</>

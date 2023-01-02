@@ -38,12 +38,12 @@ export async function middleware(req) {
 }
 
 export const config = {
-    matcher: ["/index/:path*", "/registro/:path", "/LibroContable/:path", "/usuarios/:path","/maquina/:path","/maquinaria/:path","/registrodepago/:path"],
+    matcher: ["/index/:path*", "/registro/:path", "/Finances/:path","/Supply/:path" , "/usuarios/:path","/maquina/:path","/maquinaria/:path","/registrodepago/:path"],
 };
 
 const onlyAdminPage = (url) => {
 
-    const adminpage = ["/usuarios","/maquina/:path","/maquinaria/:path","/registrodepago/:path","/registro/:path"]
+    const adminpage = ["/usuarios","/maquina","/maquinaria","/registrodepago","/registro","/Finances","/Supply"]
     for (let i = 0; i < adminpage.length; i++) {
         if (adminpage[i] === url) {
             return true
