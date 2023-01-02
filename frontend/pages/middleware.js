@@ -38,7 +38,7 @@ export async function middleware(req) {
 }
 
 export const config = {
-    matcher: ["/index/:path*", "/registro/:path", "/LibroContable/:path", "/usuarios/:path"],
+    matcher: ["/index/:path*", "/registro/:path", "/LibroContable/:path", "/usuarios/:path","/maquina/:path","/maquinaria/:path","/registrodepago/:path"],
 };
 
 const onlyAdminPage = (url) => {
