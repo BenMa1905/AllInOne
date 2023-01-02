@@ -141,10 +141,10 @@ return (
                         _hover={{ bg: "brand.500" }}
                         onMouseLeave={() => setScheduleButtCol(generalColor)}
                         onMouseEnter={() => setScheduleButtCol("#FFFFFF")}
-                        onClick={() => router.push('/scheduling', "/Usuario/Agendamiento")}
+                        onClick={() => router.push('/scheduling')}
                     >
 
-                        <Text ml='6' mr='auto'>Agendamientos</Text>
+                        <Text ml='6' mr='auto'>Añadir agendamiento</Text>
                     </Button>
 
                     <Button
@@ -159,10 +159,10 @@ return (
                         onMouseLeave={() => setHistoryButtCol(generalColor)}
                         onMouseEnter={() => setHistoryButtCol("#FFFFFF")}
 
-                        onClick={() => router.push('/productos')}
+                        onClick={() => router.push('/shedules')}
                     >
 
-                        <Text ml='6' mr='auto' >Ver historial</Text>
+                        <Text ml='6' mr='auto' >Agendamientos previos</Text>
                     </Button>
 
 <Button
@@ -226,7 +226,6 @@ return (
                         >
                             <Text ml='6' mr='auto' >Ver pagos de usuario</Text>
                         </Button>
-
                 </DrawerBody>
 
                 <DrawerFooter>
