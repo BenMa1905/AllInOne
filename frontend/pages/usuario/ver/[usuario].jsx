@@ -32,8 +32,8 @@ export async function getServerSideProps(context) {
 const Usuario = ({ data }) => {
 
     useEffect(() => {
-        var url = window.location.toString();
-        var clean_url = url.substring(0, url.lastIndexOf('/'));
+        const url = window.location.toString();
+        const clean_url = url.substring(0, url.lastIndexOf('/'));
         window.history.replaceState({},document.title, clean_url);
         console.log(url)
     }, [])
@@ -47,7 +47,7 @@ const Usuario = ({ data }) => {
             setId(decoded.sub)
             setRole(decoded.role)
         }
-        if (decoded.sub !== user._id) {
+        if (decoded.sub !== user._id && decoded.role === 'client') {
             document.getElementById("clt").style.display = "none";
             console.log(user._id)
             console.log(decoded.sub)
