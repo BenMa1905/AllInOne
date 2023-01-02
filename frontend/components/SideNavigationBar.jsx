@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 
 import { HamburgerIcon } from '@chakra-ui/icons'
-import { WashingMachineIcon, HomeIcon, ScheduleIcon, HistoryIcon, LogoLavanderia, FinancesIcon, SupplyIcon, MoneyIcon } from '../public/SVGsResources'
+import { WashingMachineIcon, HomeIcon, ScheduleIcon, HistoryIcon, LogoLavanderia, FinancesIcon, SupplyIcon, MoneyIcon, UserIcon } from '../public/SVGsResources'
 
 const SideNavigationBar = (viewportSize) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +31,7 @@ const SideNavigationBar = (viewportSize) => {
     const [MoneyButtCol1, setMoneyButtCol1] = useState(generalColor)
     const [MoneyButtCol2, setMoneyButtCol2] = useState(generalColor)
     const [WashingButtCol, setWashingButtCol] = useState(generalColor)
+    const [UsersButtCol, setUsersButtCol] = useState(generalColor)
 
     const [decoded, setdecoded] = useState();
     const [userName, setusername] = useState();
@@ -206,6 +207,22 @@ const SideNavigationBar = (viewportSize) => {
                                 onClick={() => router.push('/registrodepago')}
                             >
                                 <Text ml='6' mr='auto' >Ver registro de pago</Text>
+                            </Button>
+                            <Button
+
+                                rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
+                                colorScheme='white' color='black'
+                                display="flex" justifyContent="space-between" alignItems="center"
+
+                                leftIcon={<UserIcon fill={UsersButtCol} width="42" height="42" />}
+
+                                _hover={{ bg: "brand.500" }}
+                                onMouseLeave={() => setUsersButtCol(generalColor)}
+                                onMouseEnter={() => setUsersButtCol("#FFFFFF")}
+                                onClick={() => router.push('/usuarios')}
+                            >
+
+                                <Text ml='6' mr='auto'>Adm Usuarios</Text>
                             </Button>
 
                         </>)}
