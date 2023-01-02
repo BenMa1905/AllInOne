@@ -190,6 +190,42 @@ return (
                         >
                             <Text ml='6' mr='auto' >Inventario</Text>
                         </Button>
+                        <Button
+                            rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
+                            colorScheme='white' color='black'
+                            display="flex" justifyContent="space-between" alignItems="center"
+                            leftIcon={<WashingMachineIcon fill={historyButtCol} width="42" height="42" />}
+                            _hover={{ bg: "brand.500" }}
+                            onMouseLeave={() => WashingMachineIcon(generalColor)}
+                            onMouseEnter={() => WashingMachineIcon("#FFFFFF")}
+                            onClick={() => router.push('/maquinaria')}
+                        >
+                            <Text ml='6' mr='auto' >Ver Maquinaria</Text>
+                        </Button>
+                        <Button
+                            rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
+                            colorScheme='white' color='black'
+                            display="flex" justifyContent="space-between" alignItems="center"
+                            leftIcon={<MoneyIcon fill={historyButtCol} width="42" height="42" />}
+                            _hover={{ bg: "brand.500" }}
+                            onMouseLeave={() => MoneyIcon(generalColor)}
+                            onMouseEnter={() => MoneyIcon("#FFFFFF")}
+                            onClick={() => router.push('/registrodepago')}
+                        >
+                            <Text ml='6' mr='auto' >Ver registrodepago</Text>
+                        </Button>
+                        <Button
+                            rounded='0' pr='10' pl='10' w='full' mb={2} h='16'
+                            colorScheme='white' color='black'
+                            display="flex" justifyContent="space-between" alignItems="center"
+                            leftIcon={<MoneyIcon fill={historyButtCol} width="42" height="42" />}
+                            _hover={{ bg: "brand.500" }}
+                            onMouseLeave={() => MoneyIcon(generalColor)}
+                            onMouseEnter={() => MoneyIcon("#FFFFFF")}
+                            onClick={() => router.push('/pagosdeusuario')}
+                        >
+                            <Text ml='6' mr='auto' >Ver pagos de usuario</Text>
+                        </Button>
 
                 </DrawerBody>
 
