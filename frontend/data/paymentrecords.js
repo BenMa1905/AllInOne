@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const getpaymentrecord=async(id)=> {
-    const response =await axios.get(`${process.env.API_URL}/paymentrecord/search/${id}`);
+    const response =await axios.get(`${process.env.API_URL}/paymentrecord/${id}`);
     //console.log(response)
     return response
 }
