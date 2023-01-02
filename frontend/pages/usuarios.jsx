@@ -89,7 +89,7 @@ const usuarios = () => {
     return (
         <>
             <SideNavigationBar />
-            <Container centerContent borderRadius={"2rem"} minW='70vw' minH="50vh" mt='10vh' maxW="70vw" bg='whiteAlpha.800' overflow='hidden' >
+            <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' centerContent overflow='hidden'>
                 <Heading textAlign={"center"} my={10}>Usuarios</Heading>
                 <Button colorScheme="teal" onClick={() => router.push('/usuario/crear')}>Crear usuario</Button>
                 <FormControl>

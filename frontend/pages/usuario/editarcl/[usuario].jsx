@@ -84,7 +84,7 @@ const Usuario = ({ data }) => {
     return (
         <>
             <SideNavigationBar></SideNavigationBar>
-            <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto">
+            <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
                 <Heading textAlign={'center'} fontFamily={'inherit'} fontWeight={'light'} >Editar usuario</Heading>
                 <HStack>
                 </HStack>

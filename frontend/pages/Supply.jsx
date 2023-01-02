@@ -130,9 +130,9 @@ const Supplies = (viewportSize) => {
     return (
         <>
             <SideNavigationBar {...viewportSize} />
-            <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='70vw' margin=" 7.5rem auto">
-                <Heading textAlign={'center'} >Suministros</Heading>
-                <Table variant={"striped"}>
+            <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
+                <Heading textAlign={'center'}  padding={'10'}>Suministros</Heading>
+                <Table bg="skyblue" mb='10px' rounded={"xl"} >
                     <Thead>
                         <Tr>
                             <Td width={"350px"}>Nombre</Td>
@@ -165,7 +165,7 @@ const Supplies = (viewportSize) => {
                                 </FormControl>
                             </Td>
                             <Td display={'flex'} justifyContent="space-evenly" >
-                                <IconButton aria-label='Search database' bg={"green.500"} icon={<AddIcon />} onClick={onSubmit} />
+                                <IconButton aria-label='Search database' bg={"brand.500"} icon={<AddIcon />} onClick={onSubmit} />
                             </Td>
                         </Tr>
                     </Tbody>

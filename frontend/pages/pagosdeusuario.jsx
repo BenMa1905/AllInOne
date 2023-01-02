@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Table, Tr, Td,Container, Heading } from '@chakra-ui/react'
+import { Button, Table, Tr, Td, Heading,Container } from '@chakra-ui/react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import jwt from 'jwt-decode'
@@ -9,10 +9,12 @@ const Pagosdeusuario
         const [paymentrecords, setPayments] = useState([])
         const router = useRouter()
         const [userId, setUserId] = useState(null)
+        // Obtén todos los registros de pago
         const getPaymentRecords = async () => {
             const response = await axios.get(`${process.env.API_URL}/paymentrecords`)
             setPayments(response.data)
         }
+        // Obtén el ID del usuario conectado
         const getUserId = async () => {
             try {
                 const token = document.cookie.split('=')[1]
@@ -28,9 +30,9 @@ const Pagosdeusuario
         return (
             <>
             <SideNavigationBar {...viewportSize}/>
-            <Container  bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{opacity: 0.9}}  maxW="container.xl" centerContent>
-                <Heading textAlign={"center"} my={20}>Pagos de usuario</Heading>    
-                <Table  borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{ opacity: 0.9 }} maxW="container.xl" centerContent bg="skyblue" mb='10px' border='10px' borderColor={'black'} >
+            <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
+            <Heading textAlign={"center"} my={20}>Pagos de usuario</Heading>
+                    <Table bg="skyblue" mb='10px' rounded={"xl"} >
                 <thead>
                     <Tr>
                         <Td>Nombre del usuario</Td>

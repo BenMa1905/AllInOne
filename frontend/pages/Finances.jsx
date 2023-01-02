@@ -136,9 +136,9 @@ export default function Finances(viewportSize) {
     return (
         <>
             <SideNavigationBar {...viewportSize}/>
-            <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='60vw' margin=" 7.5rem auto">
-                <Heading textAlign={'center'}>Libro contable</Heading>
-                <Table bg="skyblue" mb='10px' border='10px' borderColor={'black'} style={{ borderCollapse: 'collapse' }}>
+            <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
+                <Heading textAlign={'center'} padding={"10"}>Libro contable</Heading>
+                <Table bg="skyblue" mb='10px' rounded={"xl"} >
                     <Thead>
                         <Tr>
                             <Td>Dinero en efectivo</Td>

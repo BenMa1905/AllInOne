@@ -74,7 +74,7 @@ const Registrodepago = (viewportSize) => {
     return (
         <>
             <SideNavigationBar {...viewportSize}/>
-            <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{ opacity: 0.9 }} maxW="container.xl" centerContent>
+            <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
                 <Heading textAlign={"center"} my={10}>Registro de pago</Heading>
                 <HStack w={"full"} py={10}>
                     <Button colorScheme="blue" onClick={() => router.push('/registro/crear')}>Crear Registro</Button>
@@ -88,8 +88,7 @@ const Registrodepago = (viewportSize) => {
                         ))}
                     </Select>
                 </FormControl>
-                <Table  borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{ opacity: 0.9 }} maxW="container.xl" centerContent
-                bg="skyblue" mb='10px' border='10px' borderColor={'black'} >
+                <Table bg="skyblue" mb='10px' rounded={"xl"} >
                     <Thead>
                         <Tr>
                             <Td>Usuario</Td>
@@ -108,4 +107,3 @@ const Registrodepago = (viewportSize) => {
     )
 }
 export default Registrodepago
-
