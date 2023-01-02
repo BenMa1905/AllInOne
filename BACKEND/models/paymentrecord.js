@@ -20,9 +20,7 @@ const paymentrecord = new Schema({
         enum: [
             'efectivo',
             'transferencia'
-
         ]
     },
-
 })
 module.exports = mongoose.model('paymentrecord', paymentrecord);
