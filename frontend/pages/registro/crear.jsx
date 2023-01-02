@@ -24,9 +24,9 @@ const Registrodepago = (viewportSize) => {
 		}
 		getData()
 	}, [])
-	return ( <>
-		<SideNavigationBar {...viewportSize}/>
-		<Container   bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{opacity: 0.9}}  centerContent >
+	return (<>
+		<SideNavigationBar {...viewportSize} />
+		<Container bg='whiteAlpha.800' borderRadius={"2rem"} minH={"20vh"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{ opacity: 0.9 }} >
 			<Heading textAlign={"center"} my={10}>Crear registro</Heading>
 			<Formik
 				initialValues={{
@@ -39,7 +39,27 @@ const Registrodepago = (viewportSize) => {
 				onSubmit={async (values) => {
 					try {
 						const response = await createpaymentrecord(values)
+						if (values.tipo_de_pago === 'efectivo') {
+							const cashresponse = await axios.put(`${process.env.API_URL}/ledger/update/${values._id}`, {
+								"$inc": {
+									"cashBalance": values.monto_pagado
+								}
+							});
+							if (cashresponse.status === 200) {
+								console.log('cash updated')
+							}
+						} else {
+							const debitResponse = await axios.put(`${process.env.API_URL}/ledger/update/${values._id}`, {
+								"$inc": {
+									"debitBalance": values.monto_pagado
+								}
+							});
+							if (debitResponse.status === 200) {
+								console.log('debit updated')
+							}
+						}
 						if (response.status === 200) {
+
 							Swal.fire({
 								icon: 'success',
 								title: 'registro creado',
@@ -65,13 +85,13 @@ const Registrodepago = (viewportSize) => {
 					handleBlur,
 					handleSubmit
 				}) => (
-					<form onSubmit={handleSubmit} id="form" bg="white" style={{ opacity: 0.9 }} maxW="container.xl" centerContent>
+					<form onSubmit={handleSubmit}  id="form" bg="white" style={{ opacity: 0.9 }} maxW="container.xl" centerContent>
 						<Stack>
 							<FormInput onChange={handleChange} placeholder="año-mes-dia" label="Fecha de pago" type={"date"} name={"Fecha_de_pago"} onBlur={handleBlur} value={values.Fecha_de_pago} />
 							{touched.Fecha_de_pago && errors.Fecha_de_pago && <FormikError error={errors.Fecha_de_pago} />}
 							<FormControl>
 								<FormLabel>Usuario</FormLabel>
-								<Select onChange={handleChange} value={values.user} name="user"  placeholder='seleccione usuario'onBlur={handleBlur}>
+								<Select onChange={handleChange} value={values.user} name="user" placeholder='seleccione usuario' onBlur={handleBlur}>
 									{users.map(user => (
 										<option key={user._id} value={user._id}>
 											{user.name}
@@ -97,7 +117,7 @@ const Registrodepago = (viewportSize) => {
 				)}
 			</Formik>
 		</Container>
-		</>
-		)
+	</>
+	)
 }
 export default Registrodepago
