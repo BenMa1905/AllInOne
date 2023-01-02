@@ -30,6 +30,27 @@ const Registro = ({ data }, viewportSize) => {
     const [paymentrecord] = useState(data)
     const handleDelete = async () => {
         try {
+            if (paymentrecord.tipo_de_pago === 'efectivo') {
+                console.log('efectivo')
+                const cashresponse = await axios.put(`${process.env.API_URL}/ledger/update/${paymentrecord._id}`, {
+                    "$inc": {
+                        "cashBalance": -paymentrecord.monto_pagado
+                    }
+                });
+                if(cashresponse.status === 200){
+                    console.log('cash updated')
+                }
+            } else{
+                console.log('transferencia')
+                const debitResponse = await axios.put(`${process.env.API_URL}/ledger/update/${paymentrecord._id}`, {
+                    "$inc": {
+                        "debitBalance": -paymentrecord.monto_pagado
+                    }
+                });
+                if(debitResponse.status === 200){
+                    console.log('debit updated')
+                }
+            }
             const response = await axios.delete(`${process.env.API_URL}/paymentrecord/delete/${paymentrecord._id}`)
             ///console.log(response)
             if (response.status === 200) {
@@ -47,7 +68,9 @@ const Registro = ({ data }, viewportSize) => {
                 title: 'Oops...',
                 text: 'Algo salió mal!',
             })
+
         }
+
     }
     return (<>
         <SideNavigationBar {...viewportSize} />
@@ -71,5 +94,3 @@ const Registro = ({ data }, viewportSize) => {
 }
 
 export default Registro
-
-
