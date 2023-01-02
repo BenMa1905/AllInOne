@@ -1,6 +1,5 @@
 const Machine = require('../models/machine');
 const Schedule = require('../models/schedule');
-
 const createMachine = (req, res) => {
     const { name, machineType, serial, status, schedule } = req.body
     const newMachine = new Machine({
