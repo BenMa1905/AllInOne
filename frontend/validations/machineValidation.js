@@ -2,14 +2,14 @@ import * as yup from 'yup';
 
 const machineValidation = yup.object({
     name: yup.string()
-        .required('Name is required')
-        .matches(/^[aA-zZ\s]+$/, 'El nombre debe contener caracteres validos'),//nose si sea necesario ya que puede tener un numero la maquina
+        .required('nombre requerido')
+        .matches(/^[aA-zZ\s]+$/, 'El nombre debe contener caracteres validos'),
         machineType: yup.string()
-        .required('machineType is required'),
+        .required('tipo de maquina requerida'),
     serial: yup.string()
-        .required('serial is required'),
+        .required('serial requerido '),
         status: yup.string()
-        .required('status is required')
+        .required('status requerido')
 })
 
 export default machineValidation;
