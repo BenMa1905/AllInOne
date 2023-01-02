@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 
 import { HamburgerIcon } from '@chakra-ui/icons'
-import { WashingMachineIcon, HomeIcon, ScheduleIcon, HistoryIcon, LogoLavanderia, FinancesIcon, SupplyIcon } from '../public/SVGsResources'
+import { WashingMachineIcon, HomeIcon, ScheduleIcon, HistoryIcon, LogoLavanderia, FinancesIcon, SupplyIcon,MoneyIcon } from '../public/SVGsResources'
 
 const SideNavigationBar = (viewportSize) => {
     const [isOpen, setIsOpen] = useState(false);
