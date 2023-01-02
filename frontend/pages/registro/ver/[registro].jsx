@@ -34,7 +34,8 @@ const Registro = ({ data },viewportSize) => {
             if (paymentrecord.tipo_de_pago === 'efectivo') {
                 const cashresponse = await axios.put(`${process.env.API_URL}/ledger/update/${paymentrecord._id}`, {
                     "$inc": {
-                        "cashBalance": -paymentrecord.monto_pagado
+                        "cashBalance": -paymentrecord.monto_pagado,
+                        "totalDebt": paymentrecord.monto_pagado
                     }
                 });
                 if(cashresponse.status === 200){
@@ -43,7 +44,8 @@ const Registro = ({ data },viewportSize) => {
             } else{
                 const debitResponse = await axios.put(`${process.env.API_URL}/ledger/update/${paymentrecord._id}`, {
                     "$inc": {
-                        "debitBalance": -paymentrecord.monto_pagado
+                        "debitBalance": -paymentrecord.monto_pagado,
+                        "totalDebt": paymentrecord.monto_pagado
                     }
                 });
                 if(debitResponse.status === 200){
