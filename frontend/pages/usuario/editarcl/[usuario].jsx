@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { useToast, FormControl, FormErrorMessage, FormHelperText, IconButton, Stack, Button, Container, Input, Text, Heading, Table, Thead, Tbody, Tfoot, Tr, Th, Td, Box, getDividerStyles, HStack, FormLabel, Textarea, Flex } from '@chakra-ui/react'
+import { useToast, FormControl, Button, Container, Heading, HStack, FormLabel, Flex } from '@chakra-ui/react'
 import SideNavigationBar from '../../../components/SideNavigationBar'
 import { getUser, updateUser } from '../../../data/user'
 import FormikError from '../../../components/FormikError'
 import FormInput from '../../../components/FormInput'
 import { Form, Formik } from 'formik'
-import userCreateVerify from '../../../validations/userCreateVerify'
+import userEditclVerify from '../../../validations/userEditclVerify'
 
 
 export async function getServerSideProps(context) {
@@ -79,18 +79,16 @@ const Usuario = ({ data }) => {
             })
         }
     }
-
-    const toast = useToast()
     return (
         <>
             <SideNavigationBar></SideNavigationBar>
-            <Container minH='92vh' minW='74vw' maxW='74vw' bg='whiteAlpha.800' overflow='hidden'>
+            <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto">
                 <Heading textAlign={'center'} fontFamily={'inherit'} fontWeight={'light'} >Editar usuario</Heading>
                 <HStack>
                 </HStack>
                 <Formik
                     initialValues={values}
-                    validationSchema={userCreateVerify}
+                    validationSchema={userEditclVerify}
                     onSubmit={onSubmit}
                 >
                     {({
