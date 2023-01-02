@@ -15,7 +15,7 @@ const Maquinaria = (viewportSize) => {
 	return (
 		<>
             <SideNavigationBar {...viewportSize}/>
-			<Container   bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{opacity: 0.9}}   centerContent >
+			<Container bg='whiteAlpha.800' borderRadius={"2rem"} minH={"20vh"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{ opacity: 0.9 }} >
 			<Heading textAlign={"center"} my={10}>Crear maquina</Heading>
 			<Formik
 				initialValues={{
@@ -56,7 +56,7 @@ const Maquinaria = (viewportSize) => {
 					handleBlur,
 					handleSubmit
 				}) => (
-					<form onSubmit={handleSubmit} id="form"  bg="white" style={{opacity: 0.9}}  maxW="container.xl" centerContent>
+					<form onSubmit={handleSubmit} id="form"  bg="white" style={{ opacity: 0.9 }} maxW="container.xl" centerContent>
 						<Stack>
 							<FormInput onChange={handleChange} placeholder="Nombre" label="Nombre" type={"text"} name={"name"} onBlur={handleBlur} value={values.name} />
 							{touched.name && errors.name && <FormikError error={errors.name} />}
