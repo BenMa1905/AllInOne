@@ -124,10 +124,10 @@ const supply = ({ data }) => {
                 <FormLabel>Descripción</FormLabel>
                 <Textarea placeholder={suministro.description} name="description" onChange={onChange} />
                 <Container>
-                    <Flex justifyContent={"space-around"}>
-                        <Button colorScheme={"teal"} size={"md"} type={"submit"} my={"5"} onClick={onEdit}>Guardar cambios</Button>
-                        <Button colorScheme={"red"} size={"md"} type={"submit"} my={"5"} onClick={onBack}>Volver</Button>
-                    </Flex>
+                    <HStack py={3}>
+                            <Button w={"full"} colorScheme={"red"} onClick={onEdit}>Eliminar </Button>
+                            <Button w={"full"} colorScheme={"blue"} onClick={onBack}>Volver</Button>
+                    </HStack>
                 </Container>
             </Container>
 
