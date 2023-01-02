@@ -123,7 +123,7 @@ export default function Finances(viewportSize) {
                     </Td>
                     <Td>
                         <FormControl>
-                            <Input placeholder="Deuda total" type={"number"} min={"0"} onChange={onChange} name={"totalDebt"} />
+                            <Input placeholder="Deuda total usuarios" type={"number"} min={"0"} onChange={onChange} name={"totalDebt"} />
                         </FormControl>
                     </Td>
                     <Td display={'flex'} mx="10" justifyContent="space-evenly">
