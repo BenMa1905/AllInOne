@@ -75,7 +75,7 @@ const Registro = ({ data },viewportSize) => {
     return (<>
         <SideNavigationBar {...viewportSize} />
         <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='35vw' margin=" 7.5rem auto" style={{ opacity: 0.9 }} centerContent>
-            <Heading color="black.500" my={10}> Registro de pago de {paymentrecord.user ? paymentrecord.user.name : "usuario eliminado"} </Heading>
+            <Heading color="black.500" my={10}> Registro de {paymentrecord.user ? paymentrecord.user.name : "usuario eliminado"} </Heading>
             <Stack w={"full"}>
                 <ShowInfo tag="Fecha de pago" data={paymentrecord.Fecha_de_pago} color="blue.500" />
                 <HStack>
