@@ -16,22 +16,41 @@ export async function getServerSideProps(context) {
             }
         }
     } catch (err) {
+        const response = await getpaymentrecord(context.query.registro)
+
         return {
-            redirect: {
-                destination: '/registrodepago',
-                permanent: true
+            props: {
+                data: response.data
             }
         }
     }
 }
-const Registro = ({ data }, viewportSize) => {
+const Registro = ({ data },viewportSize) => {
     const router = useRouter()
     //const { maquina } = router.query
     const [paymentrecord] = useState(data)
     const handleDelete = async () => {
         try {
+            if (paymentrecord.tipo_de_pago === 'efectivo') {
+                const cashresponse = await axios.put(`${process.env.API_URL}/ledger/update/${paymentrecord._id}`, {
+                    "$inc": {
+                        "cashBalance": -paymentrecord.monto_pagado
+                    }
+                });
+                if(cashresponse.status === 200){
+                    console.log('cash updated')
+                }
+            } else{
+                const debitResponse = await axios.put(`${process.env.API_URL}/ledger/update/${paymentrecord._id}`, {
+                    "$inc": {
+                        "debitBalance": -paymentrecord.monto_pagado
+                    }
+                });
+                if(debitResponse.status === 200){
+                    console.log('debit updated')
+                }
+            }
             const response = await axios.delete(`${process.env.API_URL}/paymentrecord/delete/${paymentrecord._id}`)
-            ///console.log(response)
             if (response.status === 200) {
                 Swal.fire({
                     icon: 'success',
@@ -47,12 +66,14 @@ const Registro = ({ data }, viewportSize) => {
                 title: 'Oops...',
                 text: 'Algo salió mal!',
             })
+
         }
+
     }
     return (<>
         <SideNavigationBar {...viewportSize} />
         <Container bg='whiteAlpha.800' borderRadius={"2rem"} padding={'10'} minW='30vw' margin=" 7.5rem auto" style={{ opacity: 0.9 }} centerContent>
-            <Heading color="black.500" my={10}> Registro de pago de: {paymentrecord.user ? paymentrecord.user.name : "usuario eliminado"} </Heading>
+            <Heading color="black.500" my={10}> Registro de pago de {paymentrecord.user ? paymentrecord.user.name : "usuario eliminado"} </Heading>
             <Stack w={"full"}>
                 <ShowInfo tag="Fecha de pago" data={paymentrecord.Fecha_de_pago} color="blue.500" />
                 <HStack>
@@ -71,5 +92,3 @@ const Registro = ({ data }, viewportSize) => {
 }
 
 export default Registro
-
-
