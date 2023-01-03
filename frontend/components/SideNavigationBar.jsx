@@ -87,6 +87,8 @@ const SideNavigationBar = (viewportSize) => {
 
                     </MenuButton>
                     <MenuList borderBottom='1px' borderLeft='1px' borderTop='0' borderColor='brand.500' mt='-2' roundedTop='0' roundedBottom='xl' minW="20vw" align="center" justifySelf="start" alignSelf="center"  >
+                    <MenuItem _hover={{ bg: "brand.500" }} _focus={{ bg: "brand.500" }} onClick={() => router.push(`/usuario/vercl/${userId}`)}>
+                            Ver Perfil</MenuItem>
                         <MenuItem _hover={{ bg: "brand.500" }} _focus={{ bg: "brand.500" }} onClick={() => router.push(`/usuario/editarcl/${userId}`)}>
                             Editar Perfil</MenuItem>
                         <MenuItem _hover={{ bg: "brand.500" }} _focus={{ bg: "brand.500" }} onClick={() => router.push('/productos')}>

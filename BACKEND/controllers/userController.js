@@ -125,7 +125,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = (req, res) => {
     const { id } = req.params
-    User.findByDelete(id, (error, user) => {
+    User.findByIdAndDelete(id, (error, user) => {
         if (error) {
             return res.status(400).send({ message: "No se ha podido eliminar el usuario" })
         }
